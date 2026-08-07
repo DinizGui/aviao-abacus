@@ -20,9 +20,25 @@
 
   /* ===== barra de topo ===== */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;
-    justify-content:space-between;padding:20px 34px;mix-blend-mode:difference;color:#fff}
-  .brand{font-family:"Cormorant Garamond",serif;font-size:26px;letter-spacing:6px;font-weight:600}
-  .topbar .tag{font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.85}
+    justify-content:space-between;gap:24px;padding:18px 34px;color:#fff;
+    background:linear-gradient(180deg,rgba(6,12,24,.5),rgba(6,12,24,0))}
+  .brand{font-family:"Cormorant Garamond",serif;font-size:26px;letter-spacing:6px;font-weight:600;
+    display:flex;align-items:center;gap:10px;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+  .brand .mk{color:var(--gold);font-size:18px}
+  .tabs{display:flex;gap:30px;justify-content:center;flex:1}
+  .tab{position:relative;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(255,255,255,.80);cursor:pointer;padding:6px 0;transition:color .25s ease;
+    text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .tab:hover{color:#fff}
+  .tab::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;border-radius:2px;
+    background:var(--gold);transform:scaleX(0);transition:transform .3s ease}
+  .tab.active{color:#fff}
+  .tab.active::after{transform:scaleX(1)}
+  .contact{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;white-space:nowrap;
+    border:1px solid rgba(255,255,255,.5);padding:9px 20px;border-radius:3px;cursor:pointer;
+    transition:background .25s ease,color .25s ease,border-color .25s ease}
+  .contact:hover{background:var(--gold);border-color:var(--gold);color:#0a0a0c}
+  @media(max-width:860px){.tabs{display:none}}
 
   /* ===== PALCO: vídeo dirigido pelo scroll ===== */
   .stage{height:760vh;position:relative}
@@ -61,8 +77,10 @@
   .wmeta{font-size:13px;color:#d3cec4}
   .wbig{font-family:"Cormorant Garamond",serif;font-size:52px;line-height:1;color:#fff;margin:4px 0 2px}
   .wsub{font-size:12.5px;color:#d3cec4;margin-bottom:16px}
-  .wbtn{display:inline-block;border:1px solid var(--gold);color:var(--cream);font-size:11px;
-    letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;border-radius:2px}
+  .wbtn{display:inline-block;background:var(--gold);border:1px solid var(--gold);color:#0a0a0c;
+    font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;
+    border-radius:3px;cursor:pointer;transition:filter .2s ease}
+  .wbtn:hover{filter:brightness(1.08)}
   @media(max-width:900px){.widget{display:none}}
 
   .scrollcue{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:4;
@@ -108,10 +126,17 @@
 
   <div id="loader"><span>Carregando experiência…</span></div>
   <div class="prog" id="prog"></div>
-  <div class="topbar">
-    <div class="brand">MERIDIAN</div>
-    <div class="tag">Aviação Executiva</div>
-  </div>
+  <header class="topbar">
+    <div class="brand"><span class="mk">✦</span>MERIDIAN</div>
+    <nav class="tabs" id="tabs">
+      <a class="tab active">Fretamento</a>
+      <a class="tab">Aeronaves</a>
+      <a class="tab">Experiência</a>
+      <a class="tab">Propriedade</a>
+      <a class="tab">Segurança</a>
+    </nav>
+    <a class="contact">Contato</a>
+  </header>
 
   <!-- ===== PALCO cinematográfico ===== -->
   <section class="stage" id="stage">
@@ -241,6 +266,14 @@
   }
   requestAnimationFrame(tick);
   onScroll();
+
+  // tabs selecionáveis
+  document.querySelectorAll('#tabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#tabs .tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
 </script>
 </body>
 </html>
