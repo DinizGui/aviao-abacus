@@ -48,7 +48,7 @@
     background:radial-gradient(120% 120% at 50% 40%,transparent 55%,rgba(0,0,0,.65) 100%)}
   .barsTop,.barsBot{position:absolute;left:0;right:0;height:90px;pointer-events:none;z-index:2}
   .barsTop{top:0;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent)}
-  .barsBot{bottom:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent)}
+  .barsBot{bottom:0;height:220px;background:linear-gradient(0deg,rgba(4,10,20,.72),rgba(4,10,20,.28) 45%,transparent)}
 
   .phrases{position:absolute;left:0;right:0;top:0;bottom:0;z-index:3;pointer-events:none}
   .phrase{position:absolute;left:50%;top:50%;transform:translate(-50%,-42%);width:min(1100px,90vw);
@@ -91,8 +91,8 @@
   .hui-left .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
   .hui-left h1{font-family:"Cormorant Garamond",serif;font-weight:500;line-height:.96;
     font-size:clamp(46px,8.5vw,108px);letter-spacing:1px;text-shadow:0 4px 40px rgba(0,0,0,.4)}
-  .hui-left p{margin:22px 0 26px;max-width:420px;line-height:1.7;color:#eae6dc;font-size:15px;
-    text-shadow:0 1px 12px rgba(0,0,0,.45)}
+  .hui-left p{margin:22px 0 26px;max-width:420px;line-height:1.7;color:#f0ece2;font-size:15px;
+    text-shadow:0 1px 14px rgba(0,0,0,.7)}
   .hui-cta{display:inline-flex;align-items:center;gap:12px;pointer-events:auto;flex-wrap:wrap}
   .hui-cta .fld{background:rgba(10,16,30,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid rgba(255,255,255,.28);border-radius:3px;padding:13px 18px;font-size:12px;
@@ -116,8 +116,9 @@
   .hui-stats{position:absolute;left:5.5vw;bottom:6vh;display:flex;gap:44px;flex-wrap:wrap;pointer-events:auto}
   .hstat{display:flex;gap:12px;align-items:flex-start;max-width:185px}
   .hstat .ic{color:var(--gold);font-size:17px;line-height:1.2}
-  .hstat b{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:5px}
-  .hstat span{font-size:12.5px;line-height:1.45;color:#d3cec4}
+  .hstat b{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:5px;
+    text-shadow:0 1px 10px rgba(0,0,0,.7)}
+  .hstat span{font-size:12.5px;line-height:1.45;color:#e4e0d6;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 
   .hui-play{position:absolute;right:4vw;bottom:6vh;display:flex;align-items:center;gap:12px;
     pointer-events:auto;cursor:pointer;color:#fff}
@@ -129,7 +130,8 @@
   @media(max-width:860px){.hui-cards,.hui-stats,.hui-play{display:none}}
 
   .scrollcue{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:4;
-    color:#fff;font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-align:center;transition:opacity .4s}
+    color:#fff;font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-align:center;transition:opacity .4s;
+    text-shadow:0 1px 12px rgba(0,0,0,.75)}
   .scrollcue span{display:block;margin-top:10px;animation:bob 1.8s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
@@ -305,8 +307,8 @@
     cue.style.opacity = p > 0.02 ? '0' : '0.85';
     prog.style.width = (p*100).toFixed(2) + '%';
 
-    // hero inicial: textos vão pra esquerda, cards pra direita (abrindo) e saem ao rolar
-    const k = Math.min(1, Math.max(0, p / 0.12));
+    // hero abre pros lados quando o avião chega ao meio da tela (aproximação)
+    const k = Math.min(1, Math.max(0, (p - 0.05) / 0.09));
     const op = (1 - k).toFixed(3);
     heroUI.style.opacity = op;
     heroUI.style.pointerEvents = k < 0.85 ? '' : 'none';
