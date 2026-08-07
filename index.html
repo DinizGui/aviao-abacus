@@ -21,8 +21,9 @@
   /* ===== barra de topo ===== */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;
     justify-content:space-between;gap:24px;padding:18px 34px;color:#fff;
+    font-family:"Archivo",sans-serif;
     background:linear-gradient(180deg,rgba(6,12,24,.5),rgba(6,12,24,0))}
-  .brand{font-family:"Cormorant Garamond",serif;font-size:26px;letter-spacing:6px;font-weight:600;
+  .brand{font-family:"Archivo",sans-serif;font-size:22px;letter-spacing:5px;font-weight:800;
     display:flex;align-items:center;gap:10px;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.45)}
   .brand .mk{color:var(--gold);font-size:18px}
   .tabs{display:flex;gap:30px;justify-content:center;flex:1}
@@ -84,7 +85,7 @@
   @media(max-width:900px){.widget{display:none}}
 
   /* ===== HERO UI inicial (estilo referência) ===== */
-  #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff}
+  #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff;font-family:"Archivo",sans-serif}
   .hui-left,.hui-cards,.hui-stats,.hui-play{transition:transform .12s linear,opacity .12s linear;
     will-change:transform,opacity}
   .hui-left{position:absolute;left:5.5vw;top:50%;transform:translateY(-54%);max-width:48vw}
@@ -105,17 +106,14 @@
 
   .hui-cards{position:absolute;right:4vw;top:24%;display:flex;flex-direction:column;gap:12px;
     width:min(232px,23vw);align-items:flex-end;pointer-events:auto}
-  .hcard{width:100%;background:linear-gradient(180deg,rgba(12,18,34,.34),rgba(9,14,26,.24));
-    backdrop-filter:blur(26px) saturate(125%);-webkit-backdrop-filter:blur(26px) saturate(125%);
-    border:1px solid rgba(255,255,255,.22);border-top-color:rgba(255,255,255,.36);
-    border-radius:13px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+  .hcard{width:100%;background:linear-gradient(180deg,rgba(12,20,38,.52),rgba(9,15,28,.4));
+    backdrop-filter:blur(15px) saturate(120%);-webkit-backdrop-filter:blur(15px) saturate(120%);
+    border:1px solid rgba(255,255,255,.16);border-top-color:rgba(255,255,255,.30);
+    border-radius:13px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.4)}
   .hcard:nth-child(2){width:82%}
-  .hcard .ic{color:var(--gold);font-size:13px;margin-bottom:8px;
-    text-shadow:0 0 2px rgba(0,0,0,.9),0 1px 3px rgba(0,0,0,.9)}
-  .hcard b{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:5px;
-    text-shadow:0 0 2px rgba(0,0,0,.95),0 1px 2px rgba(0,0,0,.95),0 2px 10px rgba(0,0,0,.8)}
-  .hcard span{font-size:12px;line-height:1.45;color:#fff;
-    text-shadow:0 0 2px rgba(0,0,0,.95),0 1px 2px rgba(0,0,0,.95),0 2px 10px rgba(0,0,0,.8)}
+  .hcard .ic{color:var(--gold);font-size:13px;margin-bottom:8px}
+  .hcard b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:5px}
+  .hcard span{font-size:11.5px;line-height:1.45;color:#d3cec4}
 
   .hui-stats{position:absolute;left:5.5vw;bottom:6vh;display:flex;gap:44px;flex-wrap:wrap;pointer-events:auto}
   .hstat{display:flex;gap:12px;align-items:flex-start;max-width:185px}
