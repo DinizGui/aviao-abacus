@@ -43,6 +43,27 @@
     font-size:clamp(38px,7vw,92px);letter-spacing:.5px;text-shadow:0 4px 40px rgba(0,0,0,.5)}
   .phrase h1 em{font-style:italic;color:var(--gold)}
 
+  /* ===== widgets de vidro (saem pros lados quando o avião cruza) ===== */
+  .widget{position:absolute;top:50%;z-index:5;width:min(310px,25vw);
+    background:rgba(255,255,255,.08);backdrop-filter:blur(16px) saturate(120%);
+    -webkit-backdrop-filter:blur(16px) saturate(120%);
+    border:1px solid rgba(255,255,255,.20);border-radius:18px;padding:22px 24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.38);color:var(--cream);will-change:transform,opacity}
+  .wL{left:46px;transform:translate(0,-50%)}
+  .wR{right:46px;transform:translate(0,-50%);text-align:right}
+  .wtag{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .wtag .dot{width:7px;height:7px;border-radius:50%;background:#7ee08a;box-shadow:0 0 10px #7ee08a}
+  .wsmall{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#cfc9bd;opacity:.8}
+  .route{font-family:"Cormorant Garamond",serif;font-size:34px;margin:6px 0 4px;letter-spacing:1px}
+  .route span{color:var(--gold);margin:0 8px}
+  .wmeta{font-size:13px;color:#b9b3a8}
+  .wbig{font-family:"Cormorant Garamond",serif;font-size:52px;line-height:1;color:#fff;margin:4px 0 2px}
+  .wsub{font-size:12.5px;color:#b9b3a8;margin-bottom:16px}
+  .wbtn{display:inline-block;border:1px solid var(--gold);color:var(--cream);font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;border-radius:2px}
+  @media(max-width:900px){.widget{display:none}}
+
   .scrollcue{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:4;
     color:#fff;font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-align:center;transition:opacity .4s}
   .scrollcue span{display:block;margin-top:10px;animation:bob 1.8s ease-in-out infinite}
@@ -120,30 +141,31 @@
         </div>
       </div>
 
+      <!-- widgets de apresentação -->
+      <div class="widget wL" id="wL">
+        <div class="wtag"><span class="dot"></span>Ao vivo</div>
+        <div class="wsmall">Próxima decolagem</div>
+        <div class="route">GRU <span>→</span> JFK</div>
+        <div class="wmeta">14:30 · Gulfstream G700</div>
+      </div>
+      <div class="widget wR" id="wR">
+        <div class="wtag">Concierge 24/7</div>
+        <div class="wbig">3.500+</div>
+        <div class="wsub">aeroportos ao seu alcance</div>
+        <div class="wbtn">Solicitar cotação →</div>
+      </div>
+
       <div class="scrollcue" id="cue">Role para embarcar<span>↓</span></div>
     </div>
   </section>
-
-  <!-- ===== FECHAMENTO ===== -->
-  <section class="outro">
-    <div class="idx reveal">Meridian · Private Aviation</div>
-    <h2 class="reveal">Voe além do <em>horizonte</em>.</h2>
-    <p class="reveal">Fretamento executivo sob demanda, com a discrição e o conforto que o seu tempo merece. Um voo, do jeito que deveria ser.</p>
-    <a class="cta reveal" href="#">Solicitar cotação →</a>
-    <div class="specs">
-      <div class="spec reveal"><b>24/7</b><span>Disponibilidade</span></div>
-      <div class="spec reveal"><b>3.500+</b><span>Aeroportos</span></div>
-      <div class="spec reveal"><b>15&nbsp;min</b><span>Do carro à cabine</span></div>
-    </div>
-  </section>
-
-  <footer>© Meridian — Aviação Executiva</footer>
 
 <script>
   const film  = document.getElementById('film');
   const stage = document.getElementById('stage');
   const cue   = document.getElementById('cue');
   const prog  = document.getElementById('prog');
+  const wL    = document.getElementById('wL');
+  const wR    = document.getElementById('wR');
   const phrases = [...document.querySelectorAll('.phrase')];
 
   let dur = 0, target = 0, current = 0, ready = false, seeking = false;
@@ -164,6 +186,14 @@
     });
     cue.style.opacity = p > 0.02 ? '0' : '0.85';
     prog.style.width = (p*100).toFixed(2) + '%';
+
+    // widgets deslizam pros lados enquanto o avião cruza o meio (1º capítulo)
+    const k = Math.min(1, Math.max(0, p / 0.13));
+    const op = (1 - k).toFixed(3);
+    wL.style.transform = `translate(${(-k*180).toFixed(1)}%,-50%)`;
+    wR.style.transform = `translate(${( k*180).toFixed(1)}%,-50%)`;
+    wL.style.opacity = op; wR.style.opacity = op;
+    wL.style.pointerEvents = wR.style.pointerEvents = k > 0.9 ? 'none' : 'auto';
   }
   function onScroll(){ target = progress(); update(target); }
   window.addEventListener('scroll', onScroll, { passive:true });
@@ -182,11 +212,6 @@
   }
   requestAnimationFrame(tick);
   onScroll();
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
