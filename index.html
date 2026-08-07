@@ -108,32 +108,28 @@
   <section class="stage" id="stage">
     <div class="sticky">
       <video id="film" muted playsinline preload="auto" webkit-playsinline>
-        <source src="assets/jet.mp4" type="video/mp4" />
+        <source src="assets/jet-v2.mp4" type="video/mp4" />
       </video>
       <div class="barsTop"></div>
       <div class="barsBot"></div>
       <div class="grain"></div>
 
       <div class="phrases">
-        <div class="phrase" data-start="0.00" data-end="0.17">
+        <div class="phrase" data-start="0.00" data-end="0.22">
           <div class="idx">01 — Meridian</div>
           <h1>O céu é só<br>o <em>começo</em>.</h1>
         </div>
-        <div class="phrase" data-start="0.20" data-end="0.36">
+        <div class="phrase" data-start="0.26" data-end="0.48">
           <div class="idx">02 — Comando</div>
           <h1>Cada detalhe<br>sob <em>controle</em>.</h1>
         </div>
-        <div class="phrase" data-start="0.39" data-end="0.55">
+        <div class="phrase" data-start="0.52" data-end="0.73">
           <div class="idx">03 — Cabine</div>
           <h1>Seu espaço.<br>Sua <em>altitude</em>.</h1>
         </div>
-        <div class="phrase" data-start="0.58" data-end="0.73">
-          <div class="idx">04 — A bordo</div>
+        <div class="phrase" data-start="0.77" data-end="0.98">
+          <div class="idx">04 — Meridian</div>
           <h1>Do primeiro passo<br>ao <em>pouso</em>.</h1>
-        </div>
-        <div class="phrase" data-start="0.78" data-end="0.97">
-          <div class="idx">05 — Meridian</div>
-          <h1>Luxo que<br><em>viaja</em> com você.</h1>
         </div>
       </div>
 
@@ -187,10 +183,10 @@
     // aparecem no início -> saem quando o nariz vem pro centro (cockpit) ->
     // somem na cabine -> voltam assim que a sala aparece -> seguem até o fim
     let vis;
-    if      (p < 0.20) vis = 1;
-    else if (p < 0.30) vis = 1 - (p - 0.20) / 0.10;   // saem pros lados no cockpit
-    else if (p < 0.68) vis = 0;                        // escondidos na cabine
-    else if (p < 0.75) vis = (p - 0.68) / 0.07;        // já entram antes do lounge aparecer
+    if      (p < 0.26) vis = 1;
+    else if (p < 0.38) vis = 1 - (p - 0.26) / 0.12;   // saem pros lados no cockpit
+    else if (p < 0.80) vis = 0;                        // escondidos na cabine
+    else if (p < 0.90) vis = (p - 0.80) / 0.10;        // voltam na cabine final
     else               vis = 1;
     const off = ((1 - vis) * 180).toFixed(1);
     wL.style.transform = `translate(${-off}%,-50%)`;
