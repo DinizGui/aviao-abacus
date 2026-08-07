@@ -13,7 +13,7 @@
     --paper:#ffffff;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:auto}
   body{
     font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:var(--ink);
@@ -21,48 +21,44 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ---------- HERO (vídeo) ---------- */
-  .hero{position:relative;height:100vh;overflow:hidden;background:#c9d3dd}
-  .hero video{
-    position:absolute;inset:0;width:100%;height:100%;
-    object-fit:cover;
+  /* ---------- PALCO DO SCROLL (vídeo controlado pela rolagem) ---------- */
+  .stage{height:420vh;position:relative}
+  .sticky{
+    position:sticky;top:0;height:100vh;overflow:hidden;background:#c9d3dd;
   }
-  /* leve escurecida pra leitura do texto no começo do vídeo */
-  .hero .shade{
-    position:absolute;inset:0;
+  .sticky video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .shade{
+    position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,20,38,.35),rgba(6,20,38,0) 45%);
-    pointer-events:none;
   }
-  .hero .copy{
-    position:absolute;left:0;right:0;top:34%;
-    text-align:center;color:#fff;padding:0 24px;
+
+  /* frases que trocam conforme o scroll */
+  .phrases{position:absolute;left:0;right:0;top:32%;text-align:center;
+    color:#fff;padding:0 24px;pointer-events:none}
+  .phrase{
+    position:absolute;left:0;right:0;padding:0 24px;
+    opacity:0;transform:translateY(18px);
     transition:opacity .6s ease, transform .6s ease;
   }
-  .hero .copy .kicker{
+  .phrase.active{opacity:1;transform:none}
+  .phrase .kicker{
     text-transform:uppercase;letter-spacing:.28em;font-size:12px;
-    font-weight:600;opacity:.85;margin-bottom:18px;
-  }
-  .hero .copy h1{
-    font-size:clamp(38px,7vw,84px);font-weight:700;line-height:1.02;
-    letter-spacing:-.02em;text-shadow:0 2px 30px rgba(0,0,0,.25);
-  }
-  /* véu branco: fecha na nuvem e vira o fundo do site */
-  .veil{
-    position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
-    transition:opacity 1s ease;
-  }
+    font-weight:600;opacity:.85;margin-bottom:16px}
+  .phrase h1{
+    font-size:clamp(32px,6vw,76px);font-weight:700;line-height:1.05;
+    letter-spacing:-.02em;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+
+  /* véu branco: acompanha a entrada na nuvem no fim do vídeo */
+  .veil{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+
   .scrollcue{
     position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
     color:#fff;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-    opacity:0;transition:opacity .6s ease;text-align:center
-  }
+    text-align:center;transition:opacity .4s ease}
   .scrollcue span{display:block;margin-top:8px;animation:bob 1.6s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-
-  /* estados controlados por JS */
-  body.arriving .hero .copy{opacity:0;transform:translateY(-14px)}
-  body.arriving .veil{opacity:1}
-  body.arrived .scrollcue{opacity:.9}
 
   /* ---------- SEÇÃO 1 ---------- */
   .section{padding:120px 24px}
@@ -93,26 +89,37 @@
   footer{padding:40px 24px;text-align:center;color:var(--muted);font-size:13px;
     border-top:1px solid var(--line)}
 
-  /* aparição suave ao rolar */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <header class="hero">
-    <video id="film" autoplay muted playsinline preload="auto">
-      <source src="assets/aviao.mp4" type="video/mp4" />
-    </video>
-    <div class="shade"></div>
-    <div class="copy">
-      <div class="kicker">Norse · Aviação</div>
-      <h1>Voar é chegar antes.</h1>
+  <!-- PALCO: vídeo dirigido pelo scroll -->
+  <section class="stage" id="stage">
+    <div class="sticky">
+      <video id="film" muted playsinline preload="auto" webkit-playsinline>
+        <source src="assets/aviao.mp4" type="video/mp4" />
+      </video>
+      <div class="shade"></div>
+
+      <div class="phrases">
+        <div class="phrase" data-start="0"    data-end="0.30">
+          <div class="kicker">Norse · Aviação</div>
+          <h1>Voar é chegar antes.</h1>
+        </div>
+        <div class="phrase" data-start="0.30" data-end="0.60">
+          <h1>Rotas diretas.<br>Tempo no seu bolso.</h1>
+        </div>
+        <div class="phrase" data-start="0.60" data-end="0.86">
+          <h1>Conforto do primeiro<br>ao último minuto.</h1>
+        </div>
+      </div>
+
+      <div class="veil" id="veil"></div>
+      <div class="scrollcue" id="cue">Role para voar<span>↓</span></div>
     </div>
-    <div class="veil"></div>
-    <div class="scrollcue">Continue<span>↓</span></div>
-  </header>
+  </section>
 
   <!-- SEÇÃO 1 -->
   <section class="section intro">
@@ -142,24 +149,59 @@
   <footer>© Norse Aviação · feito para voar</footer>
 
 <script>
-  const film = document.getElementById('film');
-  const body = document.body;
+  const film  = document.getElementById('film');
+  const stage = document.getElementById('stage');
+  const veil  = document.getElementById('veil');
+  const cue   = document.getElementById('cue');
+  const phrases = [...document.querySelectorAll('.phrase')];
 
-  // fecha no branco quando entra na nuvem (final do vídeo)
-  film.addEventListener('timeupdate', () => {
-    if (film.duration && film.currentTime > film.duration - 0.9) {
-      body.classList.add('arriving');
+  let dur = 0;
+  let target = 0;   // tempo alvo (0..1) vindo do scroll
+  let current = 0;  // tempo suavizado
+  let ready = false;
+
+  film.addEventListener('loadedmetadata', () => { dur = film.duration; ready = true; });
+  // garante o 1º frame parado (sem autoplay)
+  film.addEventListener('loadeddata', () => { try { film.pause(); } catch(e){} });
+
+  function progress(){
+    const rect = stage.getBoundingClientRect();
+    const scrollable = stage.offsetHeight - window.innerHeight;
+    const p = Math.min(1, Math.max(0, -rect.top / scrollable));
+    return p;
+  }
+
+  function updatePhrases(p){
+    phrases.forEach(el => {
+      const s = parseFloat(el.dataset.start), e = parseFloat(el.dataset.end);
+      el.classList.toggle('active', p >= s && p < e);
+    });
+    // dica some assim que começa a rolar
+    cue.style.opacity = p > 0.02 ? '0' : '0.9';
+    // véu branco entra junto com a nuvem (últimos 14% do vídeo)
+    const v = Math.min(1, Math.max(0, (p - 0.86) / 0.14));
+    veil.style.opacity = v.toFixed(3);
+  }
+
+  function onScroll(){ target = progress(); updatePhrases(target); }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll);
+
+  // loop de suavização: aproxima o vídeo do alvo (scrubbing suave)
+  function tick(){
+    current += (target - current) * 0.12;
+    if (ready && dur){
+      const t = current * dur;
+      if (Math.abs(film.currentTime - t) > 0.01) {
+        try { film.currentTime = t; } catch(e){}
+      }
     }
-  });
-  // "depois da nuvem" -> mostra o site
-  film.addEventListener('ended', () => {
-    body.classList.add('arriving', 'arrived');
-  });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  onScroll();
 
-  // fallback: se o autoplay for bloqueado, revela mesmo assim
-  film.play().catch(() => body.classList.add('arriving','arrived'));
-
-  // aparição das seções ao entrar na viewport
+  // aparição das seções brancas ao entrar na viewport
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.2 });
