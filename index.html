@@ -84,8 +84,9 @@
   @media(max-width:900px){.widget{display:none}}
 
   /* ===== HERO UI inicial (estilo referência) ===== */
-  #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff;
-    transition:opacity .3s linear;will-change:opacity}
+  #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff}
+  .hui-left,.hui-cards,.hui-stats,.hui-play{transition:transform .12s linear,opacity .12s linear;
+    will-change:transform,opacity}
   .hui-left{position:absolute;left:5.5vw;top:50%;transform:translateY(-54%);max-width:48vw}
   .hui-left .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
   .hui-left h1{font-family:"Cormorant Garamond",serif;font-weight:500;line-height:.96;
@@ -101,16 +102,16 @@
     transition:filter .2s ease}
   .hui-cta .go:hover{filter:brightness(1.08)}
 
-  .hui-cards{position:absolute;right:4vw;top:23%;display:flex;flex-direction:column;gap:15px;
-    width:min(300px,30vw);align-items:flex-end;pointer-events:auto}
+  .hui-cards{position:absolute;right:4vw;top:24%;display:flex;flex-direction:column;gap:12px;
+    width:min(232px,23vw);align-items:flex-end;pointer-events:auto}
   .hcard{width:100%;background:linear-gradient(180deg,rgba(12,20,38,.52),rgba(9,15,28,.4));
-    backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%);
+    backdrop-filter:blur(15px) saturate(120%);-webkit-backdrop-filter:blur(15px) saturate(120%);
     border:1px solid rgba(255,255,255,.16);border-top-color:rgba(255,255,255,.30);
-    border-radius:16px;padding:17px 19px;box-shadow:0 20px 50px rgba(0,0,0,.42)}
-  .hcard:nth-child(2){width:84%}
-  .hcard .ic{color:var(--gold);font-size:15px;margin-bottom:11px}
-  .hcard b{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:7px}
-  .hcard span{font-size:12.5px;line-height:1.5;color:#d3cec4}
+    border-radius:13px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .hcard:nth-child(2){width:82%}
+  .hcard .ic{color:var(--gold);font-size:13px;margin-bottom:8px}
+  .hcard b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:5px}
+  .hcard span{font-size:11.5px;line-height:1.45;color:#d3cec4}
 
   .hui-stats{position:absolute;left:5.5vw;bottom:6vh;display:flex;gap:44px;flex-wrap:wrap;pointer-events:auto}
   .hstat{display:flex;gap:12px;align-items:flex-start;max-width:185px}
@@ -185,7 +186,7 @@
   <!-- ===== PALCO cinematográfico ===== -->
   <section class="stage" id="stage">
     <div class="sticky">
-      <video id="film" muted playsinline preload="auto" webkit-playsinline>
+      <video id="film" muted playsinline preload="auto" webkit-playsinline poster="assets/poster.jpg">
         <source src="assets/jet-v6.mp4" type="video/mp4" />
       </video>
       <div class="barsTop"></div>
@@ -270,6 +271,10 @@
   const wL    = document.getElementById('wL');
   const wR    = document.getElementById('wR');
   const heroUI = document.getElementById('heroUI');
+  const hL = document.querySelector('.hui-left');
+  const hC = document.querySelector('.hui-cards');
+  const hS = document.querySelector('.hui-stats');
+  const hP = document.querySelector('.hui-play');
   const phrases = [...document.querySelectorAll('.phrase')];
 
   const loader = document.getElementById('loader');
@@ -300,10 +305,15 @@
     cue.style.opacity = p > 0.02 ? '0' : '0.85';
     prog.style.width = (p*100).toFixed(2) + '%';
 
-    // hero inicial some ao rolar (abertura)
-    const heroOp = Math.min(1, Math.max(0, 1 - (p - 0.02) / 0.10));
-    heroUI.style.opacity = heroOp.toFixed(3);
-    heroUI.style.pointerEvents = heroOp > 0.1 ? '' : 'none';
+    // hero inicial: textos vão pra esquerda, cards pra direita (abrindo) e saem ao rolar
+    const k = Math.min(1, Math.max(0, p / 0.12));
+    const op = (1 - k).toFixed(3);
+    heroUI.style.opacity = op;
+    heroUI.style.pointerEvents = k < 0.85 ? '' : 'none';
+    if (hL) hL.style.transform = `translate(${(-k*60).toFixed(1)}vw,-54%)`;
+    if (hS) hS.style.transform = `translateX(${(-k*60).toFixed(1)}vw)`;
+    if (hC) hC.style.transform = `translateX(${( k*60).toFixed(1)}vw)`;
+    if (hP) hP.style.transform = `translateX(${( k*60).toFixed(1)}vw)`;
 
     // visibilidade dos widgets ao longo do scroll:
     // aparecem no início -> saem quando o nariz vem pro centro (cockpit) ->
