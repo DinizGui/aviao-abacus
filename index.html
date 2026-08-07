@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Norse — Voar é chegar antes</title>
+<style>
+  :root{
+    --ink:#0f1b2d;
+    --muted:#5b6b7e;
+    --sky:#2f7cd6;
+    --line:#e7ecf2;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- HERO (vídeo) ---------- */
+  .hero{position:relative;height:100vh;overflow:hidden;background:#c9d3dd}
+  .hero video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;
+  }
+  /* leve escurecida pra leitura do texto no começo do vídeo */
+  .hero .shade{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(6,20,38,.35),rgba(6,20,38,0) 45%);
+    pointer-events:none;
+  }
+  .hero .copy{
+    position:absolute;left:0;right:0;top:34%;
+    text-align:center;color:#fff;padding:0 24px;
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .hero .copy .kicker{
+    text-transform:uppercase;letter-spacing:.28em;font-size:12px;
+    font-weight:600;opacity:.85;margin-bottom:18px;
+  }
+  .hero .copy h1{
+    font-size:clamp(38px,7vw,84px);font-weight:700;line-height:1.02;
+    letter-spacing:-.02em;text-shadow:0 2px 30px rgba(0,0,0,.25);
+  }
+  /* véu branco: fecha na nuvem e vira o fundo do site */
+  .veil{
+    position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
+    transition:opacity 1s ease;
+  }
+  .scrollcue{
+    position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
+    color:#fff;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    opacity:0;transition:opacity .6s ease;text-align:center
+  }
+  .scrollcue span{display:block;margin-top:8px;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* estados controlados por JS */
+  body.arriving .hero .copy{opacity:0;transform:translateY(-14px)}
+  body.arriving .veil{opacity:1}
+  body.arrived .scrollcue{opacity:.9}
+
+  /* ---------- SEÇÃO 1 ---------- */
+  .section{padding:120px 24px}
+  .wrap{max-width:1040px;margin:0 auto}
+
+  .intro{padding-top:150px;text-align:center}
+  .intro .tag{color:var(--sky);font-weight:600;letter-spacing:.16em;
+    text-transform:uppercase;font-size:12px;margin-bottom:20px}
+  .intro h2{font-size:clamp(30px,5vw,54px);font-weight:700;line-height:1.08;
+    letter-spacing:-.02em;max-width:820px;margin:0 auto}
+  .intro p{color:var(--muted);font-size:clamp(16px,2.2vw,20px);line-height:1.6;
+    max-width:620px;margin:26px auto 0}
+  .stats{display:flex;gap:56px;justify-content:center;flex-wrap:wrap;margin-top:60px}
+  .stat b{display:block;font-size:40px;font-weight:700;letter-spacing:-.02em}
+  .stat span{color:var(--muted);font-size:14px}
+
+  /* ---------- SEÇÃO 2 ---------- */
+  .cta{background:#0f1b2d;color:#fff;border-radius:28px;
+    padding:72px 40px;text-align:center;
+    background-image:radial-gradient(120% 140% at 50% -20%,rgba(47,124,214,.55),transparent 60%)}
+  .cta h2{font-size:clamp(28px,4.5vw,46px);font-weight:700;letter-spacing:-.02em}
+  .cta p{color:#aebfd2;margin:18px auto 34px;max-width:520px;line-height:1.6}
+  .btn{display:inline-block;background:#fff;color:#0f1b2d;font-weight:600;
+    padding:16px 34px;border-radius:999px;text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(47,124,214,.35)}
+
+  footer{padding:40px 24px;text-align:center;color:var(--muted);font-size:13px;
+    border-top:1px solid var(--line)}
+
+  /* aparição suave ao rolar */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <video id="film" autoplay muted playsinline preload="auto">
+      <source src="assets/aviao.mp4" type="video/mp4" />
+    </video>
+    <div class="shade"></div>
+    <div class="copy">
+      <div class="kicker">Norse · Aviação</div>
+      <h1>Voar é chegar antes.</h1>
+    </div>
+    <div class="veil"></div>
+    <div class="scrollcue">Continue<span>↓</span></div>
+  </header>
+
+  <!-- SEÇÃO 1 -->
+  <section class="section intro">
+    <div class="wrap">
+      <div class="tag reveal">Acima das nuvens</div>
+      <h2 class="reveal">Rotas diretas, conforto de ponta a ponta e uma frota pensada pra quem valoriza o tempo.</h2>
+      <p class="reveal">Da decolagem ao pouso, cada detalhe é desenhado pra que a viagem seja a melhor parte do trajeto — silenciosa, pontual e impecável.</p>
+      <div class="stats">
+        <div class="stat reveal"><b>48</b><span>destinos diretos</span></div>
+        <div class="stat reveal"><b>99,2%</b><span>de pontualidade</span></div>
+        <div class="stat reveal"><b>4.9★</b><span>avaliação dos passageiros</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2 -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta reveal">
+        <h2>Seu próximo voo começa aqui.</h2>
+        <p>Escolha o destino e reserve em minutos. Sem burocracia, sem taxas escondidas.</p>
+        <a class="btn" href="#">Reservar agora</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© Norse Aviação · feito para voar</footer>
+
+<script>
+  const film = document.getElementById('film');
+  const body = document.body;
+
+  // fecha no branco quando entra na nuvem (final do vídeo)
+  film.addEventListener('timeupdate', () => {
+    if (film.duration && film.currentTime > film.duration - 0.9) {
+      body.classList.add('arriving');
+    }
+  });
+  // "depois da nuvem" -> mostra o site
+  film.addEventListener('ended', () => {
+    body.classList.add('arriving', 'arrived');
+  });
+
+  // fallback: se o autoplay for bloqueado, revela mesmo assim
+  film.play().catch(() => body.classList.add('arriving','arrived'));
+
+  // aparição das seções ao entrar na viewport
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
