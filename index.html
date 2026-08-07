@@ -73,6 +73,13 @@
   /* fina barra de progresso dourada */
   .prog{position:fixed;left:0;top:0;height:2px;width:0;background:var(--gold);z-index:90;transition:width .1s linear}
 
+  /* loader */
+  #loader{position:fixed;inset:0;z-index:100;background:#000;display:flex;align-items:center;justify-content:center;
+    color:var(--cream);letter-spacing:.3em;text-transform:uppercase;font-size:12px;transition:opacity .7s ease}
+  #loader span{opacity:.85;animation:pulse 1.6s ease-in-out infinite}
+  #loader.hide{opacity:0;pointer-events:none}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
+
   /* ===== FECHAMENTO ===== */
   .outro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:120px 26px;background:
@@ -99,6 +106,7 @@
 </head>
 <body>
 
+  <div id="loader"><span>Carregando experiência…</span></div>
   <div class="prog" id="prog"></div>
   <div class="topbar">
     <div class="brand">MERIDIAN</div>
@@ -109,7 +117,7 @@
   <section class="stage" id="stage">
     <div class="sticky">
       <video id="film" muted playsinline preload="auto" webkit-playsinline>
-        <source src="assets/jet-v4.mp4" type="video/mp4" />
+        <source src="assets/jet-v5.mp4" type="video/mp4" />
       </video>
       <div class="barsTop"></div>
       <div class="barsBot"></div>
@@ -169,11 +177,20 @@
   const wR    = document.getElementById('wR');
   const phrases = [...document.querySelectorAll('.phrase')];
 
-  let dur = 0, target = 0, current = 0, ready = false, seeking = false;
-  film.addEventListener('loadedmetadata', () => { dur = film.duration; ready = true; });
-  film.addEventListener('loadeddata', () => { try { film.pause(); } catch(e){} });
-  // libera o próximo seek só quando o frame anterior chegou (evita atropelo)
+  const loader = document.getElementById('loader');
+  let dur = 0, target = 0, current = 0, ready = false, seeking = false, seekStart = 0;
+
+  film.addEventListener('loadedmetadata', () => { dur = film.duration; ready = true; onScroll(); });
+  film.addEventListener('loadeddata', () => { try { film.pause(); } catch(e){} current = target; });
+  // libera o próximo seek quando o frame chega
   film.addEventListener('seeked', () => { seeking = false; });
+
+  // esconde o loader assim que dá pra mostrar o vídeo
+  function hideLoader(){ loader.classList.add('hide'); }
+  film.addEventListener('canplay', hideLoader);
+  film.addEventListener('loadeddata', hideLoader);
+  setTimeout(hideLoader, 9000); // fallback: nunca prende o usuário
+  film.load();
 
   function progress(){
     const rect = stage.getBoundingClientRect();
@@ -209,11 +226,15 @@
 
   function tick(){
     current += (target - current) * 0.16;
-    if (ready && dur && !seeking){
-      const t = current * dur;
-      if (Math.abs(film.currentTime - t) > 0.01){
-        seeking = true;
-        try { film.currentTime = t; } catch(e){ seeking = false; }
+    if (ready && dur){
+      // trava de segurança: se um seek não completar em 150ms, libera (evita congelar)
+      if (seeking && performance.now() - seekStart > 150) seeking = false;
+      if (!seeking){
+        const t = current * dur;
+        if (Math.abs(film.currentTime - t) > 0.01){
+          seeking = true; seekStart = performance.now();
+          try { film.currentTime = t; } catch(e){ seeking = false; }
+        }
       }
     }
     requestAnimationFrame(tick);
