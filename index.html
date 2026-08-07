@@ -83,6 +83,50 @@
   .wbtn:hover{filter:brightness(1.08)}
   @media(max-width:900px){.widget{display:none}}
 
+  /* ===== HERO UI inicial (estilo referência) ===== */
+  #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff;
+    transition:opacity .3s linear;will-change:opacity}
+  .hui-left{position:absolute;left:5.5vw;top:50%;transform:translateY(-54%);max-width:48vw}
+  .hui-left .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .hui-left h1{font-family:"Cormorant Garamond",serif;font-weight:500;line-height:.96;
+    font-size:clamp(46px,8.5vw,108px);letter-spacing:1px;text-shadow:0 4px 40px rgba(0,0,0,.4)}
+  .hui-left p{margin:22px 0 26px;max-width:420px;line-height:1.7;color:#eae6dc;font-size:15px;
+    text-shadow:0 1px 12px rgba(0,0,0,.45)}
+  .hui-cta{display:inline-flex;align-items:center;gap:12px;pointer-events:auto;flex-wrap:wrap}
+  .hui-cta .fld{background:rgba(10,16,30,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.28);border-radius:3px;padding:13px 18px;font-size:12px;
+    letter-spacing:.14em;text-transform:uppercase;color:#dfe7f3}
+  .hui-cta .go{background:var(--gold);color:#0a0a0c;font-weight:600;border:1px solid var(--gold);
+    border-radius:3px;padding:13px 22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+    transition:filter .2s ease}
+  .hui-cta .go:hover{filter:brightness(1.08)}
+
+  .hui-cards{position:absolute;right:4vw;top:23%;display:flex;flex-direction:column;gap:15px;
+    width:min(300px,30vw);align-items:flex-end;pointer-events:auto}
+  .hcard{width:100%;background:linear-gradient(180deg,rgba(12,20,38,.52),rgba(9,15,28,.4));
+    backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%);
+    border:1px solid rgba(255,255,255,.16);border-top-color:rgba(255,255,255,.30);
+    border-radius:16px;padding:17px 19px;box-shadow:0 20px 50px rgba(0,0,0,.42)}
+  .hcard:nth-child(2){width:84%}
+  .hcard .ic{color:var(--gold);font-size:15px;margin-bottom:11px}
+  .hcard b{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:7px}
+  .hcard span{font-size:12.5px;line-height:1.5;color:#d3cec4}
+
+  .hui-stats{position:absolute;left:5.5vw;bottom:6vh;display:flex;gap:44px;flex-wrap:wrap;pointer-events:auto}
+  .hstat{display:flex;gap:12px;align-items:flex-start;max-width:185px}
+  .hstat .ic{color:var(--gold);font-size:17px;line-height:1.2}
+  .hstat b{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:5px}
+  .hstat span{font-size:12.5px;line-height:1.45;color:#d3cec4}
+
+  .hui-play{position:absolute;right:4vw;bottom:6vh;display:flex;align-items:center;gap:12px;
+    pointer-events:auto;cursor:pointer;color:#fff}
+  .hui-play .pbtn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;font-size:12px;transition:background .25s,color .25s,border-color .25s}
+  .hui-play:hover .pbtn{background:var(--gold);border-color:var(--gold);color:#0a0a0c}
+  .hui-play small{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.92}
+
+  @media(max-width:860px){.hui-cards,.hui-stats,.hui-play{display:none}}
+
   .scrollcue{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:4;
     color:#fff;font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-align:center;transition:opacity .4s}
   .scrollcue span{display:block;margin-top:10px;animation:bob 1.8s ease-in-out infinite}
@@ -149,10 +193,6 @@
       <div class="grain"></div>
 
       <div class="phrases">
-        <div class="phrase" data-start="0.00" data-end="0.16">
-          <div class="idx">01 — Meridian</div>
-          <h1>O céu é só<br>o <em>começo</em>.</h1>
-        </div>
         <div class="phrase" data-start="0.19" data-end="0.34">
           <div class="idx">02 — A bordo</div>
           <h1>Bem-vindo<br>a <em>bordo</em>.</h1>
@@ -172,6 +212,35 @@
         <div class="phrase" data-start="0.84" data-end="0.98">
           <div class="idx">06 — Descanso</div>
           <h1>Onde o voo<br>vira <em>descanso</em>.</h1>
+        </div>
+      </div>
+
+      <!-- HERO UI inicial (estilo referência) -->
+      <div id="heroUI">
+        <div class="hui-left">
+          <div class="kick">Meridian · Aviação Executiva</div>
+          <h1>Aviação<br>Privada</h1>
+          <p>Jornadas sob medida, com a discrição e o conforto que o seu tempo merece.</p>
+          <div class="hui-cta">
+            <span class="fld">Origem · Destino</span>
+            <span class="go">Solicitar voo →</span>
+          </div>
+        </div>
+
+        <div class="hui-cards">
+          <div class="hcard"><div class="ic">✦</div><b>Alcance global</b><span>5.000+ aeroportos no mundo todo</span></div>
+          <div class="hcard"><div class="ic">♥</div><b>Segurança primeiro</b><span>Operadores certificados globalmente</span></div>
+          <div class="hcard"><div class="ic">✧</div><b>Experiência sob medida</b><span>Cada detalhe pensado para você</span></div>
+        </div>
+
+        <div class="hui-stats">
+          <div class="hstat"><div class="ic">◷</div><div><b>Tempo economizado</b><span>Até horas a cada viagem</span></div></div>
+          <div class="hstat"><div class="ic">◆</div><div><b>Conforto de luxo</b><span>Camas flat e serviço dedicado</span></div></div>
+          <div class="hstat"><div class="ic">⛨</div><div><b>Privacidade total</b><span>Discrição em cada detalhe</span></div></div>
+        </div>
+
+        <div class="hui-play">
+          <div class="pbtn">▶</div><small>A experiência Meridian</small>
         </div>
       </div>
 
@@ -200,6 +269,7 @@
   const prog  = document.getElementById('prog');
   const wL    = document.getElementById('wL');
   const wR    = document.getElementById('wR');
+  const heroUI = document.getElementById('heroUI');
   const phrases = [...document.querySelectorAll('.phrase')];
 
   const loader = document.getElementById('loader');
@@ -230,14 +300,18 @@
     cue.style.opacity = p > 0.02 ? '0' : '0.85';
     prog.style.width = (p*100).toFixed(2) + '%';
 
+    // hero inicial some ao rolar (abertura)
+    const heroOp = Math.min(1, Math.max(0, 1 - (p - 0.02) / 0.10));
+    heroUI.style.opacity = heroOp.toFixed(3);
+    heroUI.style.pointerEvents = heroOp > 0.1 ? '' : 'none';
+
     // visibilidade dos widgets ao longo do scroll:
     // aparecem no início -> saem quando o nariz vem pro centro (cockpit) ->
     // somem na cabine -> voltam assim que a sala aparece -> seguem até o fim
+    // widgets aparecem só na suíte (o hero cobre a abertura)
     let vis;
-    if      (p < 0.13) vis = 1;
-    else if (p < 0.20) vis = 1 - (p - 0.13) / 0.07;   // saem quando bate no para-brisa e entra
-    else if (p < 0.63) vis = 0;                        // escondidos dentro da cabine/lounge
-    else if (p < 0.71) vis = (p - 0.63) / 0.08;        // voltam quando surge a suíte
+    if      (p < 0.63) vis = 0;
+    else if (p < 0.71) vis = (p - 0.63) / 0.08;
     else               vis = 1;
     const off = ((1 - vis) * 180).toFixed(1);
     wL.style.transform = `translate(${-off}%,-50%)`;
