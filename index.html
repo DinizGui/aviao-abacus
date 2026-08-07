@@ -146,9 +146,11 @@
   const prog  = document.getElementById('prog');
   const phrases = [...document.querySelectorAll('.phrase')];
 
-  let dur = 0, target = 0, current = 0, ready = false;
+  let dur = 0, target = 0, current = 0, ready = false, seeking = false;
   film.addEventListener('loadedmetadata', () => { dur = film.duration; ready = true; });
   film.addEventListener('loadeddata', () => { try { film.pause(); } catch(e){} });
+  // libera o próximo seek só quando o frame anterior chegou (evita atropelo)
+  film.addEventListener('seeked', () => { seeking = false; });
 
   function progress(){
     const rect = stage.getBoundingClientRect();
@@ -168,10 +170,13 @@
   window.addEventListener('resize', onScroll);
 
   function tick(){
-    current += (target - current) * 0.12;
-    if (ready && dur){
+    current += (target - current) * 0.16;
+    if (ready && dur && !seeking){
       const t = current * dur;
-      if (Math.abs(film.currentTime - t) > 0.008){ try { film.currentTime = t; } catch(e){} }
+      if (Math.abs(film.currentTime - t) > 0.01){
+        seeking = true;
+        try { film.currentTime = t; } catch(e){ seeking = false; }
+      }
     }
     requestAnimationFrame(tick);
   }
