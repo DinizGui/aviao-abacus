@@ -23,10 +23,9 @@
     justify-content:space-between;gap:24px;padding:18px 34px;color:#fff;
     font-family:"Archivo",sans-serif;
     background:linear-gradient(180deg,rgba(6,12,24,.5),rgba(6,12,24,0))}
-  .brand{display:flex;align-items:center;gap:9px;white-space:nowrap;text-decoration:none;
+  .brand{display:flex;align-items:center;white-space:nowrap;text-decoration:none;
     filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
-  .brand .azwm{height:32px;width:auto}
-  .brand .bird{height:19px;width:auto}
+  .brand .brandimg{height:30px;width:auto;display:block}
   .tabs{display:flex;gap:28px;justify-content:flex-end;flex:1}
   .tab{position:relative;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
     color:rgba(255,255,255,.80);cursor:pointer;padding:6px 0;transition:color .25s ease;
@@ -110,11 +109,11 @@
   .azsearch{margin-top:24px;width:min(700px,64vw);pointer-events:auto}
   .aztabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
   .aztab{display:inline-flex;align-items:center;gap:7px;font-family:"Archivo",sans-serif;font-size:12.5px;
-    font-weight:600;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.30);
-    border-radius:22px;padding:8px 15px;cursor:pointer;white-space:nowrap;
+    font-weight:600;color:#fff;background:rgba(9,26,60,.5);border:1px solid rgba(255,255,255,.34);
+    border-radius:22px;padding:8px 15px;cursor:pointer;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.55);
     backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s,color .2s}
-  .aztab:hover{background:rgba(255,255,255,.26)}
-  .aztab.active{background:#fff;color:#0b4f95;border-color:#fff}
+  .aztab:hover{background:rgba(9,26,60,.66)}
+  .aztab.active{background:#fff;color:#0b4f95;border-color:#fff;text-shadow:none}
   .azfields{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch;
     background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:9px}
@@ -199,6 +198,7 @@
   .site .wrap{max-width:1120px;margin:0 auto}
   .s-title{font-size:clamp(26px,3.4vw,40px);font-weight:800;color:#0b2a5e;text-align:center;letter-spacing:-.01em}
   .s-sub{text-align:center;color:#5b6675;margin:12px 0 44px;font-size:16px}
+  .seclogo{display:block;height:34px;width:auto;margin:0 auto 20px}
 
   .destinos{background:linear-gradient(180deg,#f3f8ff,#e9f1fd)}
   .dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
@@ -245,7 +245,7 @@
   .foot h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
   .foot a{display:block;color:#c8d6ef;text-decoration:none;font-size:14px;margin-bottom:9px;opacity:.9}
   .foot a:hover{opacity:1;color:#fff}
-  .foot .fwm{width:60px;height:auto;margin-bottom:14px}
+  .foot .fwm{width:128px;height:auto;margin-bottom:16px;display:block}
   .foot .copy{max-width:1120px;margin:34px auto 0;border-top:1px solid rgba(255,255,255,.14);
     padding-top:20px;font-size:12.5px;color:#8fa6ce;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
@@ -269,7 +269,7 @@
   <div class="prog" id="prog"></div>
   <header class="topbar">
     <a class="brand" href="#" aria-label="Azul">
-      <svg class="azwm" viewBox="0 0 66 31" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 29.0604H6.38072L7.90273 24.8302H16.2152L17.6787 29.0604H24.1765L15.2201 5.41797H8.89788L0 29.0604ZM60.3535 29.0604H66.0317V5.41797H60.3535V29.0604ZM59.0072 11.9082H53.3289V21.1218C53.3289 24.193 51.4557 24.9463 50.2264 24.9463C48.4117 24.9463 47.4165 24.135 47.4165 21.8751V11.9082H41.7383V22.2228C41.7383 26.7426 43.2017 29.582 48.1775 29.582C50.1679 29.582 52.3923 28.4811 53.446 26.7426H53.5046V29.0605H59.0072V11.9082ZM41.0938 29.0604H24.5859L24.5273 24.6564L33.1911 16.1382H25.2298V11.8501H40.4499V16.1382L31.7861 24.7723H41.0938V29.0604ZM12.1165 11.9663H12.058L9.30664 20.2527H14.7507L12.1165 11.9663Z" fill="#fff"/></svg>
+      <img class="brandimg" src="assets/azul-logo.png" alt="Azul" />
     </a>
     <nav class="tabs" id="tabs">
       <a class="tab">Minhas reservas</a>
@@ -362,6 +362,7 @@
     <!-- Destinos -->
     <section class="sec destinos">
       <div class="wrap">
+        <img class="seclogo reveal" src="assets/azul-logo.png" alt="Azul" />
         <h2 class="s-title reveal">Sua viagem dos sonhos está te esperando</h2>
         <p class="s-sub reveal">Aproveite experiências completas com os menores preços.</p>
         <div class="dgrid">
@@ -425,6 +426,7 @@
     <!-- Serviços -->
     <section class="sec servicos">
       <div class="wrap">
+        <img class="seclogo reveal" src="assets/azul-logo.png" alt="Azul" />
         <h2 class="s-title reveal">Viajar e ser feliz. O resto a gente faz por você</h2>
         <p class="s-sub reveal">Passagens, hotéis, carros e seguro num só lugar.</p>
         <div class="scards">
@@ -449,7 +451,7 @@
     <footer class="foot">
       <div class="cols">
         <div>
-          <svg class="fwm" viewBox="0 0 66 31" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 29.0604H6.38072L7.90273 24.8302H16.2152L17.6787 29.0604H24.1765L15.2201 5.41797H8.89788L0 29.0604ZM60.3535 29.0604H66.0317V5.41797H60.3535V29.0604ZM59.0072 11.9082H53.3289V21.1218C53.3289 24.193 51.4557 24.9463 50.2264 24.9463C48.4117 24.9463 47.4165 24.135 47.4165 21.8751V11.9082H41.7383V22.2228C41.7383 26.7426 43.2017 29.582 48.1775 29.582C50.1679 29.582 52.3923 28.4811 53.446 26.7426H53.5046V29.0605H59.0072V11.9082ZM41.0938 29.0604H24.5859L24.5273 24.6564L33.1911 16.1382H25.2298V11.8501H40.4499V16.1382L31.7861 24.7723H41.0938V29.0604ZM12.1165 11.9663H12.058L9.30664 20.2527H14.7507L12.1165 11.9663Z" fill="#fff"/></svg>
+          <img class="fwm" src="assets/azul-logo.png" alt="Azul" />
           <p style="color:#9fb4d8;font-size:13px;line-height:1.6;max-width:260px">O céu do Brasil é Azul. A maior malha aérea do país, ligando você a mais de 160 destinos.</p>
         </div>
         <div>
