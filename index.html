@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Baloo+2:wght@600;700;800&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --gold:#1aa0e6;
+    --gold:#0d74cc;
     --cream:#f3ece0;
     --ink:#0c0c0e;
   }
@@ -27,7 +27,7 @@
     filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
   .brand .azwm{height:32px;width:auto}
   .brand .bird{height:19px;width:auto}
-  .tabs{display:flex;gap:30px;justify-content:center;flex:1}
+  .tabs{display:flex;gap:28px;justify-content:flex-end;flex:1}
   .tab{position:relative;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
     color:rgba(255,255,255,.80);cursor:pointer;padding:6px 0;transition:color .25s ease;
     text-shadow:0 1px 10px rgba(0,0,0,.4)}
@@ -89,12 +89,13 @@
   #heroUI{position:absolute;inset:0;z-index:6;pointer-events:none;color:#fff;font-family:"Archivo",sans-serif}
   .hui-left,.hui-cards,.hui-stats,.hui-play{transition:transform .12s linear,opacity .12s linear;
     will-change:transform,opacity}
-  .hui-left{position:absolute;left:5.5vw;top:50%;transform:translateY(-54%);max-width:48vw}
-  .hui-left .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .hui-left{position:absolute;left:5.5vw;top:50%;transform:translateY(-52%);max-width:min(760px,64vw)}
+  .hui-left .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#fff;margin-bottom:16px;
+    text-shadow:0 1px 12px rgba(0,0,0,.6)}
   .hui-left h1{font-family:"Archivo","Inter",sans-serif;font-weight:800;line-height:.9;
-    font-size:clamp(44px,8vw,100px);letter-spacing:-.01em;text-transform:uppercase;
+    font-size:clamp(38px,6vw,74px);letter-spacing:-.01em;text-transform:uppercase;
     text-shadow:0 4px 40px rgba(0,0,0,.4)}
-  .hui-left p{margin:22px 0 26px;max-width:420px;line-height:1.7;color:#f0ece2;font-size:15px;
+  .hui-left p{margin:16px 0 6px;max-width:440px;line-height:1.6;color:#f0ece2;font-size:15px;
     text-shadow:0 1px 14px rgba(0,0,0,.7)}
   .hui-cta{display:inline-flex;align-items:center;gap:12px;pointer-events:auto;flex-wrap:wrap}
   .hui-cta .fld{background:rgba(10,16,30,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -104,6 +105,26 @@
     border-radius:3px;padding:13px 22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
     transition:filter .2s ease}
   .hui-cta .go:hover{filter:brightness(1.08)}
+
+  /* barra de busca estilo Azul */
+  .azsearch{margin-top:24px;width:min(700px,64vw);pointer-events:auto}
+  .aztabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .aztab{display:inline-flex;align-items:center;gap:7px;font-family:"Archivo",sans-serif;font-size:12.5px;
+    font-weight:600;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.30);
+    border-radius:22px;padding:8px 15px;cursor:pointer;white-space:nowrap;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s,color .2s}
+  .aztab:hover{background:rgba(255,255,255,.26)}
+  .aztab.active{background:#fff;color:#0b4f95;border-color:#fff}
+  .azfields{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:9px}
+  .azfield{flex:1;min-width:150px;display:flex;align-items:center;gap:9px;background:#fff;
+    border-radius:11px;padding:12px 15px;color:#5b6675;font-size:14px;font-weight:500;white-space:nowrap}
+  .azfield .fi{color:var(--gold);font-size:15px}
+  .azbtn{background:var(--gold);color:#fff;font-weight:700;border:none;border-radius:11px;
+    padding:0 30px;font-size:14.5px;cursor:pointer;white-space:nowrap;transition:filter .2s}
+  .azbtn:hover{filter:brightness(1.07)}
+  @media(max-width:900px){.azsearch{width:88vw}}
 
   .hui-cards{position:absolute;right:4vw;top:24%;display:flex;flex-direction:column;gap:12px;
     width:min(232px,23vw);align-items:flex-end;pointer-events:auto}
@@ -181,13 +202,11 @@
       <svg class="azwm" viewBox="0 0 66 31" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 29.0604H6.38072L7.90273 24.8302H16.2152L17.6787 29.0604H24.1765L15.2201 5.41797H8.89788L0 29.0604ZM60.3535 29.0604H66.0317V5.41797H60.3535V29.0604ZM59.0072 11.9082H53.3289V21.1218C53.3289 24.193 51.4557 24.9463 50.2264 24.9463C48.4117 24.9463 47.4165 24.135 47.4165 21.8751V11.9082H41.7383V22.2228C41.7383 26.7426 43.2017 29.582 48.1775 29.582C50.1679 29.582 52.3923 28.4811 53.446 26.7426H53.5046V29.0605H59.0072V11.9082ZM41.0938 29.0604H24.5859L24.5273 24.6564L33.1911 16.1382H25.2298V11.8501H40.4499V16.1382L31.7861 24.7723H41.0938V29.0604ZM12.1165 11.9663H12.058L9.30664 20.2527H14.7507L12.1165 11.9663Z" fill="#fff"/></svg>
     </a>
     <nav class="tabs" id="tabs">
-      <a class="tab active">Passagens</a>
-      <a class="tab">Check-in</a>
-      <a class="tab">Minhas viagens</a>
+      <a class="tab">Minhas reservas</a>
+      <a class="tab">Central de ajuda</a>
       <a class="tab">TudoAzul</a>
-      <a class="tab">Ajuda</a>
     </nav>
-    <a class="contact">Entrar</a>
+    <a class="contact">Login</a>
   </header>
 
   <!-- ===== PALCO cinematográfico ===== -->
@@ -228,10 +247,22 @@
         <div class="hui-left">
           <div class="kick">Azul Linhas Aéreas</div>
           <h1>Viajar é<br>ser feliz</h1>
-          <p>Mais de 160 destinos pelo Brasil e pelo mundo, com a maior malha aérea do país — do jeito Azul de voar.</p>
-          <div class="hui-cta">
-            <span class="fld">Origem · Destino</span>
-            <span class="go">Buscar voos →</span>
+          <p>A maior malha aérea do país. Mais de 160 destinos, do jeito Azul de voar.</p>
+          <div class="azsearch">
+            <div class="aztabs">
+              <button class="aztab active">✈ Voos</button>
+              <button class="aztab">🏨 Hotéis</button>
+              <button class="aztab">🎟 Ingressos e Passeios</button>
+              <button class="aztab">🚗 Carros</button>
+              <button class="aztab">🧳 Voos + Hotel</button>
+              <button class="aztab">🚢 Cruzeiro</button>
+            </div>
+            <div class="azfields">
+              <div class="azfield"><span class="fi">◉</span>Origem</div>
+              <div class="azfield"><span class="fi">◉</span>Destino</div>
+              <div class="azfield"><span class="fi">📅</span>Datas (Ida e volta)</div>
+              <button class="azbtn">Buscar</button>
+            </div>
           </div>
         </div>
 
@@ -362,6 +393,12 @@
   document.querySelectorAll('#tabs .tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('#tabs .tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.aztab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.aztab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
     });
   });
