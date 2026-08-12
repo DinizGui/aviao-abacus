@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Meridian — Aviação Executiva</title>
+<title>Azul — Viajar é ser feliz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Baloo+2:wght@600;700;800&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --gold:#c9a86a;
+    --gold:#1aa0e6;
     --cream:#f3ece0;
     --ink:#0c0c0e;
   }
@@ -23,9 +23,11 @@
     justify-content:space-between;gap:24px;padding:18px 34px;color:#fff;
     font-family:"Archivo",sans-serif;
     background:linear-gradient(180deg,rgba(6,12,24,.5),rgba(6,12,24,0))}
-  .brand{font-family:"Archivo",sans-serif;font-size:22px;letter-spacing:5px;font-weight:800;
-    display:flex;align-items:center;gap:10px;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.45)}
-  .brand .mk{color:var(--gold);font-size:18px}
+  .brand{display:flex;align-items:flex-end;gap:8px;white-space:nowrap;text-decoration:none;
+    filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
+  .brand .wm{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:30px;color:#fff;
+    line-height:1;letter-spacing:.5px}
+  .brand .bird{margin-bottom:6px}
   .tabs{display:flex;gap:30px;justify-content:center;flex:1}
   .tab{position:relative;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
     color:rgba(255,255,255,.80);cursor:pointer;padding:6px 0;transition:color .25s ease;
@@ -176,15 +178,20 @@
   <div id="loader"><span>Carregando experiência…</span></div>
   <div class="prog" id="prog"></div>
   <header class="topbar">
-    <div class="brand"><span class="mk">✦</span>MERIDIAN</div>
+    <a class="brand" href="#" aria-label="Azul">
+      <svg class="bird" viewBox="0 0 42 26" width="36" height="22" aria-hidden="true">
+        <path d="M3 18 C 11 6, 18 5, 21 13 C 24 5, 31 6, 39 18 C 31 11, 24.5 11, 21 15.5 C 17.5 11, 11 11, 3 18 Z" fill="#fff"/>
+      </svg>
+      <span class="wm">azul</span>
+    </a>
     <nav class="tabs" id="tabs">
-      <a class="tab active">Fretamento</a>
-      <a class="tab">Aeronaves</a>
-      <a class="tab">Experiência</a>
-      <a class="tab">Propriedade</a>
-      <a class="tab">Segurança</a>
+      <a class="tab active">Passagens</a>
+      <a class="tab">Check-in</a>
+      <a class="tab">Minhas viagens</a>
+      <a class="tab">TudoAzul</a>
+      <a class="tab">Ajuda</a>
     </nav>
-    <a class="contact">Contato</a>
+    <a class="contact">Entrar</a>
   </header>
 
   <!-- ===== PALCO cinematográfico ===== -->
@@ -204,48 +211,48 @@
         </div>
         <div class="phrase" data-start="0.38" data-end="0.48">
           <div class="idx">03 — Cabine</div>
-          <h1>Seu espaço.<br>Sua <em>altitude</em>.</h1>
+          <h1>Seu espaço.<br>Seu <em>conforto</em>.</h1>
         </div>
         <div class="phrase" data-start="0.51" data-end="0.62">
           <div class="idx">04 — Conforto</div>
-          <h1>Conforto<br>sem <em>escalas</em>.</h1>
+          <h1>Conforto<br>em cada <em>voo</em>.</h1>
         </div>
         <div class="phrase" data-start="0.66" data-end="0.80">
-          <div class="idx">05 — Suíte</div>
-          <h1>Uma suíte<br>nos <em>ares</em>.</h1>
+          <div class="idx">05 — Espaço</div>
+          <h1>Mais espaço<br>pra <em>você</em>.</h1>
         </div>
         <div class="phrase" data-start="0.84" data-end="0.98">
-          <div class="idx">06 — Descanso</div>
-          <h1>Onde o voo<br>vira <em>descanso</em>.</h1>
+          <div class="idx">06 — Azul</div>
+          <h1>Viajar é<br>ser <em>feliz</em>.</h1>
         </div>
       </div>
 
       <!-- HERO UI inicial (estilo referência) -->
       <div id="heroUI">
         <div class="hui-left">
-          <div class="kick">Aviação executiva · sob demanda</div>
-          <h1>Aviação<br>Privada</h1>
-          <p>Voos privativos sob medida. Decole no seu horário — com a discrição, o conforto e a pontualidade que o seu tempo merece.</p>
+          <div class="kick">Azul Linhas Aéreas</div>
+          <h1>Viajar é<br>ser feliz</h1>
+          <p>Mais de 160 destinos pelo Brasil e pelo mundo, com a maior malha aérea do país — do jeito Azul de voar.</p>
           <div class="hui-cta">
             <span class="fld">Origem · Destino</span>
-            <span class="go">Solicitar voo →</span>
+            <span class="go">Buscar voos →</span>
           </div>
         </div>
 
         <div class="hui-cards">
-          <div class="hcard"><div class="ic">✦</div><b>Alcance global</b><span>5.000+ aeroportos ao seu alcance</span></div>
-          <div class="hcard"><div class="ic">♥</div><b>Segurança primeiro</b><span>Operadores auditados e certificados</span></div>
-          <div class="hcard"><div class="ic">✧</div><b>Experiência sob medida</b><span>Cada detalhe pensado para você</span></div>
+          <div class="hcard"><div class="ic">✦</div><b>160+ destinos</b><span>No Brasil e no mundo</span></div>
+          <div class="hcard"><div class="ic">★</div><b>TudoAzul</b><span>Acumule e resgate pontos</span></div>
+          <div class="hcard"><div class="ic">✈</div><b>Maior malha aérea</b><span>Voamos para mais cidades</span></div>
         </div>
 
         <div class="hui-stats">
-          <div class="hstat"><div class="ic">◷</div><div><b>Tempo economizado</b><span>Sem filas, sem espera</span></div></div>
-          <div class="hstat"><div class="ic">◆</div><div><b>Conforto de luxo</b><span>Cabine privativa e serviço dedicado</span></div></div>
-          <div class="hstat"><div class="ic">⛨</div><div><b>Privacidade total</b><span>Discrição em cada detalhe</span></div></div>
+          <div class="hstat"><div class="ic">◷</div><div><b>Pontualidade</b><span>Uma das melhores do país</span></div></div>
+          <div class="hstat"><div class="ic">◆</div><div><b>Espaço Azul</b><span>Mais espaço entre poltronas</span></div></div>
+          <div class="hstat"><div class="ic">✶</div><div><b>Wi-Fi a bordo</b><span>Em aeronaves selecionadas</span></div></div>
         </div>
 
         <div class="hui-play">
-          <div class="pbtn">▶</div><small>A experiência Meridian</small>
+          <div class="pbtn">▶</div><small>Conheça a Azul</small>
         </div>
       </div>
 
@@ -253,14 +260,14 @@
       <div class="widget wL" id="wL">
         <div class="wtag"><span class="dot"></span>Ao vivo</div>
         <div class="wsmall">Próxima decolagem</div>
-        <div class="route">GRU <span>→</span> JFK</div>
-        <div class="wmeta">14:30 · Gulfstream G700</div>
+        <div class="route">VCP <span>→</span> FLL</div>
+        <div class="wmeta">14:30 · Airbus A330neo</div>
       </div>
       <div class="widget wR" id="wR">
-        <div class="wtag">Concierge 24/7</div>
-        <div class="wbig">3.500+</div>
-        <div class="wsub">aeroportos ao seu alcance</div>
-        <div class="wbtn">Solicitar cotação →</div>
+        <div class="wtag">TudoAzul</div>
+        <div class="wbig">160+</div>
+        <div class="wsub">destinos pelo Brasil e o mundo</div>
+        <div class="wbtn">Buscar voos →</div>
       </div>
 
       <div class="scrollcue" id="cue">Role para embarcar<span>↓</span></div>
