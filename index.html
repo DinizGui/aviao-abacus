@@ -292,7 +292,7 @@
       <div class="phrases">
         <div class="phrase" data-start="0.19" data-end="0.34">
           <div class="idx">02 — A bordo</div>
-          <h1>Bem-vindo<br>a <em>bordo</em>.</h1>
+          <h1>Bem-vindo<br>à <em>Azul</em>.</h1>
         </div>
         <div class="phrase" data-start="0.38" data-end="0.48">
           <div class="idx">03 — Cabine</div>
@@ -336,21 +336,6 @@
           </div>
         </div>
 
-        <div class="hui-cards">
-          <div class="hcard"><div class="ic">✦</div><b>160+ destinos</b><span>No Brasil e no mundo</span></div>
-          <div class="hcard"><div class="ic">★</div><b>TudoAzul</b><span>Acumule e resgate pontos</span></div>
-          <div class="hcard"><div class="ic">✈</div><b>Maior malha aérea</b><span>Voamos para mais cidades</span></div>
-        </div>
-
-        <div class="hui-stats">
-          <div class="hstat"><div class="ic">◷</div><div><b>Pontualidade</b><span>Uma das melhores do país</span></div></div>
-          <div class="hstat"><div class="ic">◆</div><div><b>Espaço Azul</b><span>Mais espaço entre poltronas</span></div></div>
-          <div class="hstat"><div class="ic">✶</div><div><b>Wi-Fi a bordo</b><span>Em aeronaves selecionadas</span></div></div>
-        </div>
-
-        <div class="hui-play">
-          <div class="pbtn">▶</div><small>Conheça a Azul</small>
-        </div>
       </div>
 
       <!-- widgets de apresentação -->
@@ -426,7 +411,7 @@
 
     <!-- Faixa cinematográfica: avião da Azul (scrub no scroll) -->
     <section class="flightband">
-      <video id="bandfilm" muted playsinline preload="auto" webkit-playsinline poster="assets/band-poster.jpg">
+      <video id="bandfilm" muted loop autoplay playsinline preload="auto" webkit-playsinline poster="assets/band-poster.jpg">
         <source src="assets/azul-fly.mp4" type="video/mp4" />
       </video>
       <div class="fb-shade"></div>
@@ -597,30 +582,9 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.site .reveal').forEach(el => revIO.observe(el));
 
-  // faixa em vídeo do avião da Azul: scrub conforme o scroll
-  const band  = document.querySelector('.flightband');
+  // faixa em vídeo do avião da Azul: sempre voando (loop)
   const bfilm = document.getElementById('bandfilm');
-  if (band && bfilm){
-    let bdur=0, btgt=0, bcur=0, bready=false, bseek=false, bseekT=0;
-    bfilm.addEventListener('loadedmetadata', ()=>{ bdur=bfilm.duration; bready=true; });
-    bfilm.addEventListener('loadeddata', ()=>{ try{bfilm.pause()}catch(e){} });
-    bfilm.addEventListener('seeked', ()=>{ bseek=false; });
-    function bandProg(){ const r=band.getBoundingClientRect(); const total=r.height+window.innerHeight;
-      return Math.min(1, Math.max(0, (window.innerHeight - r.top)/total)); }
-    function btick(){
-      if (bready && bdur){
-        btgt = bandProg();
-        bcur += (btgt - bcur)*0.16;
-        if (bseek && performance.now()-bseekT>150) bseek=false;
-        if (!bseek){ const t=bcur*bdur;
-          if (Math.abs(bfilm.currentTime - t) > 0.01){ bseek=true; bseekT=performance.now();
-            try{ bfilm.currentTime=t }catch(e){ bseek=false } } }
-      }
-      requestAnimationFrame(btick);
-    }
-    requestAnimationFrame(btick);
-    bfilm.load();
-  }
+  if (bfilm){ bfilm.play().catch(()=>{}); }
 
   // GSAP: entrada suave do texto da faixa
   if (window.gsap && window.ScrollTrigger){
