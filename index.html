@@ -249,18 +249,18 @@
   .foot .copy{max-width:1120px;margin:34px auto 0;border-top:1px solid rgba(255,255,255,.14);
     padding-top:20px;font-size:12.5px;color:#8fa6ce;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
-  /* faixa do avião voando (GSAP) */
-  .flightband{position:relative;height:250px;overflow:hidden;background:linear-gradient(180deg,#eaf3ff,#fff)}
-  .flightband .line{position:absolute;top:50%;left:8%;right:8%;height:0;border-top:2px dashed #b9d4f5;transform:translateY(-50%)}
-  .flightband .dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--gold);
-    transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(13,116,204,.18)}
-  .flightband .d1{left:8%}.flightband .d2{left:92%}
-  .flightband .city{position:absolute;top:calc(50% - 30px);transform:translateX(-50%);font-size:12px;
-    font-weight:800;color:#0b2a5e;letter-spacing:.03em;white-space:nowrap}
-  .flightband .c1{left:8%}.flightband .c2{left:92%}
-  .flyplane{position:absolute;top:50%;left:0;width:190px;margin-top:-64px;
-    filter:drop-shadow(0 12px 18px rgba(11,42,94,.22));will-change:transform;pointer-events:none}
-  @media(max-width:700px){.flyplane{width:128px;margin-top:-46px}.flightband{height:190px}}
+  /* faixa cinematográfica do avião da Azul (scrub no scroll) */
+  .flightband{position:relative;height:64vh;min-height:420px;overflow:hidden;background:#0a2350}
+  .flightband video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .fb-shade{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(90deg,rgba(6,20,50,.78),rgba(6,20,50,.2) 55%,rgba(6,20,50,0) 80%)}
+  .fb-copy{position:absolute;left:6vw;top:50%;transform:translateY(-50%);max-width:460px;color:#fff;z-index:2}
+  .fb-copy .k{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#bfe0ff;margin-bottom:14px;
+    text-shadow:0 1px 10px rgba(0,0,0,.5)}
+  .fb-copy h2{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(28px,4.2vw,54px);line-height:.98;
+    text-transform:uppercase;letter-spacing:-.01em;text-shadow:0 3px 26px rgba(0,0,0,.55)}
+  .fb-copy p{margin-top:16px;font-size:15px;line-height:1.6;color:#eaf2ff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+  @media(max-width:700px){.flightband{height:52vh;min-height:320px}}
 </style>
 </head>
 <body>
@@ -424,13 +424,17 @@
       </div>
     </section>
 
-    <!-- Avião da Azul voando (GSAP ScrollTrigger) -->
+    <!-- Faixa cinematográfica: avião da Azul (scrub no scroll) -->
     <section class="flightband">
-      <div class="line"></div>
-      <span class="dot d1"></span><span class="dot d2"></span>
-      <span class="city c1">São Paulo</span>
-      <span class="city c2">Recife</span>
-      <img class="flyplane" src="assets/plane-azul.png" alt="Avião da Azul">
+      <video id="bandfilm" muted playsinline preload="auto" webkit-playsinline poster="assets/band-poster.jpg">
+        <source src="assets/azul-fly.mp4" type="video/mp4" />
+      </video>
+      <div class="fb-shade"></div>
+      <div class="fb-copy reveal">
+        <div class="k">Azul Linhas Aéreas</div>
+        <h2>O céu do Brasil é Azul</h2>
+        <p>Mais de 160 destinos pelo Brasil e pelo mundo, com a maior malha aérea do país.</p>
+      </div>
     </section>
 
     <!-- Serviços -->
@@ -593,18 +597,36 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.site .reveal').forEach(el => revIO.observe(el));
 
-  // GSAP: avião da Azul cruza a faixa conforme o scroll + traço da rota
+  // faixa em vídeo do avião da Azul: scrub conforme o scroll
+  const band  = document.querySelector('.flightband');
+  const bfilm = document.getElementById('bandfilm');
+  if (band && bfilm){
+    let bdur=0, btgt=0, bcur=0, bready=false, bseek=false, bseekT=0;
+    bfilm.addEventListener('loadedmetadata', ()=>{ bdur=bfilm.duration; bready=true; });
+    bfilm.addEventListener('loadeddata', ()=>{ try{bfilm.pause()}catch(e){} });
+    bfilm.addEventListener('seeked', ()=>{ bseek=false; });
+    function bandProg(){ const r=band.getBoundingClientRect(); const total=r.height+window.innerHeight;
+      return Math.min(1, Math.max(0, (window.innerHeight - r.top)/total)); }
+    function btick(){
+      if (bready && bdur){
+        btgt = bandProg();
+        bcur += (btgt - bcur)*0.16;
+        if (bseek && performance.now()-bseekT>150) bseek=false;
+        if (!bseek){ const t=bcur*bdur;
+          if (Math.abs(bfilm.currentTime - t) > 0.01){ bseek=true; bseekT=performance.now();
+            try{ bfilm.currentTime=t }catch(e){ bseek=false } } }
+      }
+      requestAnimationFrame(btick);
+    }
+    requestAnimationFrame(btick);
+    bfilm.load();
+  }
+
+  // GSAP: entrada suave do texto da faixa
   if (window.gsap && window.ScrollTrigger){
     gsap.registerPlugin(ScrollTrigger);
-    gsap.fromTo('.flyplane', { x: '-24vw' }, {
-      x: '100vw', ease: 'none',
-      scrollTrigger: { trigger: '.flightband', start: 'top bottom', end: 'bottom top', scrub: 0.5 }
-    });
-    // leve balanço vertical do avião
-    gsap.to('.flyplane', {
-      y: -14, ease: 'none',
-      scrollTrigger: { trigger: '.flightband', start: 'top bottom', end: 'center center', scrub: 0.5 }
-    });
+    gsap.from('.fb-copy', { y: 40, opacity: 0, duration: .9, ease: 'power2.out',
+      scrollTrigger: { trigger: '.flightband', start: 'top 75%' } });
   }
 </script>
 </body>
