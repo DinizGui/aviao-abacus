@@ -236,19 +236,19 @@
   .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
   @media(max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:520px){.pgrid{grid-template-columns:1fr}}
-  .pcard{position:relative;min-height:190px;border-radius:18px;padding:22px;display:flex;flex-direction:column;
+  .pcard{position:relative;min-height:210px;border-radius:18px;padding:22px;display:flex;flex-direction:column;
     color:#fff;text-decoration:none;overflow:hidden;box-shadow:0 14px 30px rgba(11,42,94,.12);
-    transition:transform .2s,box-shadow .2s}
+    background-size:cover;background-position:center;transition:transform .2s,box-shadow .2s}
   .pcard:hover{transform:translateY(-4px);box-shadow:0 22px 44px rgba(11,42,94,.22)}
   .pcard .ptag{align-self:flex-start;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);
     border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700}
   .pcard b{font-size:19px;font-weight:800;line-height:1.15;margin-top:auto;padding-right:42px}
   .pcard .parr{position:absolute;right:18px;bottom:18px;width:34px;height:34px;border-radius:50%;
     background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px}
-  .pcard.c1{background:linear-gradient(140deg,#1aa0e6,#0a5aa8)}
-  .pcard.c2{background:linear-gradient(140deg,#7b4bd6,#d64ba0)}
-  .pcard.c3{background:linear-gradient(140deg,#0e79d2,#123a8f)}
-  .pcard.c4{background:linear-gradient(140deg,#12b6a0,#0a7d6b)}
+  .pcard.c1{background-image:linear-gradient(160deg,rgba(10,70,150,.55),rgba(6,30,70,.82)),url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=700&q=70&auto=format&fit=crop')}
+  .pcard.c2{background-image:linear-gradient(160deg,rgba(120,50,180,.5),rgba(40,20,80,.82)),url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=70&auto=format&fit=crop')}
+  .pcard.c3{background-image:linear-gradient(160deg,rgba(14,80,180,.5),rgba(10,30,90,.85)),url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=700&q=70&auto=format&fit=crop')}
+  .pcard.c4{background-image:linear-gradient(160deg,rgba(10,120,120,.45),rgba(6,50,70,.82)),url('https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=700&q=70&auto=format&fit=crop')}
 
   .foot{background:#0b2a5e;color:#c8d6ef;padding:56px 24px 30px}
   .foot .cols{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
